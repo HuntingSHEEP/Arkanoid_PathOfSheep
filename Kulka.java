@@ -10,6 +10,7 @@ class Kulka extends Ellipse2D.Float
    double dx,dy;
    double c;
    int drift=3;
+   boolean inBar = false;
 
 
    Kulka(Plansza p,int x,int y,double dx,double dy)
@@ -47,9 +48,14 @@ class Kulka extends Ellipse2D.Float
    }
 
    void bounceFromBar(){
-       if (p.b.intersects(this)){
+       if (p.b.intersects(this) && !inBar){
            dy=-dy;
-           //TODO: STREFY ODBICIA
+           inBar=true;
+
+           p.b.changeAngle(this);
+
+       }else if(! p.b.intersects(this)){
+           inBar=false;
        }
    }
 
@@ -61,10 +67,9 @@ class Kulka extends Ellipse2D.Float
                if (p.k[u].flaga_ZYCIA==0){
                    p.score++;
                }
-               break;
+               u=p.liczba_kafelek+1;
            }
        }
-
    }
 
 

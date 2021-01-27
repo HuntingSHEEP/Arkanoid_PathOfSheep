@@ -23,7 +23,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
       addMouseListener(this);
 
       b=new Belka(325-40, 443);
-      a=new Kulka(this,325-5,433,0.2,-1);
+      a=new Kulka(this,325-5,433,0,-1);
 
 
       for (int i=0; i<liczba_kafelek; i++){
