@@ -6,6 +6,8 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 {
    Belka b;
    Kulka a;
+
+
    SilnikKulki s;
    int liczba_kafelek = 7*2;
    Kafelka[] k = new Kafelka[liczba_kafelek];

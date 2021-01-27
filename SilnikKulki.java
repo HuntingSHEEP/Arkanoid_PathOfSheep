@@ -28,7 +28,7 @@ class SilnikKulki extends Thread
 
               final long INTERVAL = 100000;
               long start = System.nanoTime();
-              long end=0;
+              long end;
               do{
                   end = System.nanoTime();
               }while(start + INTERVAL >= end);

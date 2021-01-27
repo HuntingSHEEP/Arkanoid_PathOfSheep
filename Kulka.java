@@ -31,23 +31,43 @@ class Kulka extends Ellipse2D.Float
 
    void nextKrok()
    {
-      x+=dx;
-      y+=dy;
-      System.out.println("Y: "+getMinY()+", WYSOKOSC:"+p.getHeight());
-      if(getMinX()<0 || getMaxX()>p.getWidth())  dx=-dx;
-      if(getMinY()<0) dy=-dy;
-      if((getMinY()>p.getHeight()) && (p.getHeight()>5) ){
+       x+=dx;
+       y+=dy;
 
-        p.game_over = true;
-      }
+       if(getMinX()<0 || getMaxX()>p.getWidth())  dx=-dx;
+       if(getMinY()<0) dy=-dy;
+       if((getMinY()>p.getHeight()) && (p.getHeight()>5) ){
+           p.game_over = true;
+       }
 
+       bounceFromBar();
+       bounceFromBricks();
 
-
-      odbicie_od_belki();
-      odbicie_od_kafelek();
-
-      p.repaint();
+       p.repaint();
    }
+
+   void bounceFromBar(){
+       if (p.b.intersects(this)){
+           dy=-dy;
+           //TODO: STREFY ODBICIA
+       }
+   }
+
+   void bounceFromBricks(){
+       for(int u=0; u<p.liczba_kafelek; u++){
+           if(p.k[u].intersects(this) && (p.k[u].flaga_ZYCIA>0)){
+               dy=-dy;
+               p.k[u].flaga_ZYCIA--;
+               if (p.k[u].flaga_ZYCIA==0){
+                   p.score++;
+               }
+               break;
+           }
+       }
+
+   }
+
+
 
    void odbicie_od_belki(){
 
@@ -98,26 +118,6 @@ class Kulka extends Ellipse2D.Float
        }
      }
    }
-
-   void odbicie_od_kafelek(){
-     for(int u=0; u<p.liczba_kafelek; u++){
-       if ((p.k[u].y + p.k[u].height - drift < y) && (y < p.k[u].y + p.k[u].height + drift)){
-         System.out.println("linia y");
-         if ((p.k[u].x<x) && (x<(p.k[u].x + p.k[u].width)) && (p.k[u].flaga_ZYCIA >0)){
-           dy = -dy;
-           p.k[u].flaga_ZYCIA--;
-           if (p.k[u].flaga_ZYCIA==0){
-             p.score++;
-           }
-
-
-           break;
-         }
-       }
-     }
-   }
-
-
 
 
 }
