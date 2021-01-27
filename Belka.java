@@ -5,10 +5,10 @@ import java.awt.geom.*;
 
 class Belka extends Rectangle2D.Float
 {
-   Belka(int x)
+   Belka(int x, int y)
    {
       this.x=x;
-      this.y=300;
+      this.y=y;
       this.width=80;
       this.height=10;
    }
@@ -17,4 +17,7 @@ class Belka extends Rectangle2D.Float
    {
       this.x=x;
    }
+
+   void setY(int y) { this.y=y; }
+
 }

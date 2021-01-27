@@ -7,6 +7,7 @@ class SilnikKulki extends Thread
 {
    Kulka a;
    Plansza p;
+   boolean running = true;
 
    SilnikKulki(Plansza p,Kulka a)
    {
@@ -19,7 +20,7 @@ class SilnikKulki extends Thread
    {
       try
       {
-         while(true)
+         while(running)
          {
             a.nextKrok();
 

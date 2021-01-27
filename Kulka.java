@@ -12,7 +12,7 @@ class Kulka extends Ellipse2D.Float
    int drift=3;
 
 
-   Kulka(Plansza p,int x,int y,int dx,int dy)
+   Kulka(Plansza p,int x,int y,double dx,double dy)
    {
       this.x=x;
       this.y=y;
@@ -25,6 +25,9 @@ class Kulka extends Ellipse2D.Float
       this.c = Math.sqrt(dx*dx + dy*dy);
 
    }
+
+   void setX(int x){this.x = x;}
+   void setY(int y){this.y = y;}
 
    void nextKrok()
    {
