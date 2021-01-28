@@ -19,7 +19,7 @@ public class Program
 
             jf.setTitle("Arkanoid");
             jf.setSize(650,500);
-            jf.setResizable(true);
+            jf.setResizable(false);
             jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             jf.setVisible(true);
          }

@@ -10,10 +10,10 @@ class Kafelka extends Rectangle2D.Float
   int flaga_ZYCIA;
 
 
-    Kafelka(Plansza p, int x, int y)
+    Kafelka(Plansza p, int x, int y, int width)
     {
-        this.margines=1;
-        this.width=60-this.margines;
+        this.margines=2;
+        this.width=width-this.margines;
         this.height=20-this.margines;
         this.x=x*(this.width+this.margines)+this.margines;
         this.y=y*(this.height+this.margines)+this.margines;
