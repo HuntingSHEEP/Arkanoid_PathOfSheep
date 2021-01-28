@@ -6,13 +6,13 @@ import java.lang.Math;
 
 class Belka extends Rectangle2D.Float
 {
-   double roundPercentage = 0.3;
+   double roundPercentage = 0.2;
    double bounceAngle = 15;
    Belka(int x, int y)
    {
       this.x=x;
       this.y=y;
-      this.width=80;
+      this.width=120;
       this.height=10;
    }
 
@@ -24,7 +24,7 @@ class Belka extends Rectangle2D.Float
    }
 
    public boolean intersects(Kulka q){
-      //TODO: BELKA NIŻSZA OD KULKI
+      //TODO:[BUG] BELKA NIŻSZA OD KULKI
       boolean test1 = contains(q.x, q.y);
       boolean test2 = contains(q.x+q.width, q.y);
       boolean test3 = contains(q.x+q.width, q.y+q.height);
