@@ -6,7 +6,7 @@ public class Bonus extends Rectangle2D.Float
     Plansza p;
     boolean isAlive = false;
     int heightMargin, widthMargin;
-    int type = 0;
+    int type = -1;
 
     Bonus(Plansza p, int x, int y, int width){
         this.heightMargin = 10;
@@ -21,8 +21,23 @@ public class Bonus extends Rectangle2D.Float
 
     public void exec(){
         if (type == 0){
+            //BALL SPEED PENALTY
             p.s.delay = 0.4;
             p.s.delayCount = 2000;
+        }else if(type == 1){
+            //EXTEND BAR
+            if (p.b.width + 20 <= 240){
+                p.b.width += 20;
+                p.b.x -= 10;
+            }
+
+        }else if(type == 2){
+            //SHORTEN THE BAR
+            if (p.b.width - 20 >= 60){
+                p.b.width -= 20;
+                p.b.x += 10;
+            }
+
         }
 
     }
@@ -33,7 +48,7 @@ public class Bonus extends Rectangle2D.Float
         if (type == 1)
             return Color.GREEN;
         if (type == 2)
-            return Color.GREEN;
+            return Color.BLUE;
 
         return Color.DARK_GRAY;
     }

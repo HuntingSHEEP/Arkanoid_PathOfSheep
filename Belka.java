@@ -12,7 +12,7 @@ class Belka extends Rectangle2D.Float
    {
       this.x=x;
       this.y=y;
-      this.width=120;
+      this.width=80;
       this.height=10;
    }
 
