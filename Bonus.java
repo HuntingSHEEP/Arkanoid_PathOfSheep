@@ -91,7 +91,7 @@ public class Bonus extends Rectangle2D.Float
 
     public Color getTexture(){
         if (type == 0)
-            return Color.RED;
+            return new Color(50, 2, 2);
         if (type == 1)
             return Color.GREEN;
         if (type == 2)

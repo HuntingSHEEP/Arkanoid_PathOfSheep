@@ -29,7 +29,7 @@ class Kafelka extends Rectangle2D.Float
         if ( (0<=bonus) && (bonus <=10)){
 
             p.fallingBonus[index].type = bonus%10;
-            p.fallingBonus[index].type = 7;
+            //p.fallingBonus[index].type = 7;
             p.fallingBonus[index].isAlive = true;
 
             Thread watek = new Thread(){
