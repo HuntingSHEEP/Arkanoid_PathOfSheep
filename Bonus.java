@@ -24,6 +24,7 @@ public class Bonus extends Rectangle2D.Float
             //BALL SPEED PENALTY
             p.s.delay = 0.4;
             p.s.delayCount = 2000;
+
         }else if(type == 1){
             //EXTEND BAR
             if (p.b.width + 20 <= 240){
@@ -38,6 +39,20 @@ public class Bonus extends Rectangle2D.Float
                 p.b.x += 10;
             }
 
+        }else if(type == 3){
+            //INCREASE ROUND PERCENTAGE
+            if (p.b.roundPercentage + 0.1 <= 0.4){
+                p.b.roundPercentage += 0.1;
+            }
+
+        }else if(type == 4){
+            //DECREASE ROUND PERCENTAGE
+            if (p.b.roundPercentage - 0.1 >= 0.1){
+                p.b.roundPercentage -= 0.1;
+            }
+
+        }else if(type == 5){
+            p.floor.isAlive=true;
         }
 
     }
@@ -49,6 +64,12 @@ public class Bonus extends Rectangle2D.Float
             return Color.GREEN;
         if (type == 2)
             return Color.BLUE;
+        if (type == 3)
+            return Color.CYAN;
+        if (type == 4)
+            return Color.YELLOW;
+        if (type == 5)
+            return Color.BLACK;
 
         return Color.DARK_GRAY;
     }

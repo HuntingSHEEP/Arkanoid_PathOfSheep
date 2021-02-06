@@ -39,6 +39,7 @@ class Kulka extends Ellipse2D.Float
 
        bounceFromBar();
        bounceFromBricks();
+       bounceFromFloor();
 
        p.repaint();
    }
@@ -66,6 +67,14 @@ class Kulka extends Ellipse2D.Float
                    p.k[u].createBonus(u);
                }
                u=p.liczba_kafelek+1;
+           }
+       }
+   }
+
+   void bounceFromFloor(){
+       if(p.floor.isAlive){
+           if(p.floor.intersects(this)){
+               dy=-dy;
            }
        }
    }

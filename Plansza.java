@@ -12,6 +12,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
     Belka b;
     Kulka a;
     Color barColor;
+    Floor floor;
 
     String brickTextureSource0 ="textures/Fabric026_1K_Color.jpg";
     BufferedImage brickTextureImage0;
@@ -39,8 +40,9 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
       addMouseMotionListener(this);
       addMouseListener(this);
 
-      b=new Belka(325-40, 443);
-      a=new Kulka(this,325-5,433,0,-2);
+      b=new Belka(325-40, 430);
+      a=new Kulka(this,325-5,420,0,-2);
+      floor=new Floor(this, 0, 455, 650);
 
       for (int i=0; i<liczba_kafelek; i++){
           k[i]=new Kafelka(this, i%columns, i/columns, 650/columns);
@@ -85,6 +87,10 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
            g2d.setPaint(new GradientPaint((b.x + (int) (b.width*(1- b.roundPercentage))) ,b.y, barColor, b.x+ b.width, b.y+b.height, new Color(32,178,170)));
            g2d.fill(new Rectangle2D.Float((b.x + (int) (b.width*(1- b.roundPercentage))) ,b.y, (int) (b.width * b.roundPercentage), b.height));
 
+           if(floor.isAlive){
+               g2d.setPaint(floor.getTexture());
+               g2d.fill(floor);
+           }
 
            for(int i=0; i<liczba_kafelek; i++){
 
