@@ -8,7 +8,8 @@ class SilnikKulki extends Thread
    Kulka a;
    Plansza p;
    boolean running = true;
-   int delay = 1;
+   double delay = 1;
+   int delayCount=0;
 
    SilnikKulki(Plansza p,Kulka a)
    {
@@ -25,9 +26,14 @@ class SilnikKulki extends Thread
          {
             a.nextKrok();
 
+            if (delayCount>0)
+                delayCount--;
+            else
+                delay=1;
+
             for (int i=0; i<5; i++){
 
-              final long INTERVAL = delay * 1000000;
+              final long INTERVAL = (int) (delay * 1000000);
               long start = System.nanoTime();
               long end;
               do{

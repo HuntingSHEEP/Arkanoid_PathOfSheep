@@ -20,33 +20,46 @@ class Kafelka extends Rectangle2D.Float
         this.x=x*(this.width+this.margines)+this.margines;
         this.y=y*(this.height+this.margines)+this.margines;
         this.flaga_ZYCIA=2;
-        //bonus = ThreadLocalRandom.current().nextInt(0, 1 + 1);
-        bonus = 1;
+        bonus = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+        //bonus = 1;
         this.p = p;
     }
 
     public void createBonus(int index){
-        if ( (1<=bonus) && (bonus <=2)){
+        if ( (0<=bonus) && (bonus <=10)){
 
-            p.fallingBonus[index].type = bonus;
+            p.fallingBonus[index].type = bonus%3;
             p.fallingBonus[index].isAlive = true;
 
             Thread watek = new Thread(){
                 public void run(){
-                    System.out.println("WĄTEK");
-
                     for (int i=0; i<500; i++){
                         p.fallingBonus[index].y++;
-
-                        final long INTERVAL =  10000000;
-                        long start = System.nanoTime();
-                        long end;
-                        do{
-                            end = System.nanoTime();
-                        }while(start + INTERVAL >= end);
-
+                        waitSomeTime();
+                        if(executeBarHit())
+                            i = 600;
                     }
+                    p.fallingBonus[index].isAlive = false;
                 }
+
+                public void waitSomeTime(){
+                    final long INTERVAL =  10000000;
+                    long start = System.nanoTime();
+                    long end;
+                    do{
+                        end = System.nanoTime();
+                    }while(start + INTERVAL >= end);
+                }
+
+                public boolean executeBarHit(){
+                    if(p.b.intersects(p.fallingBonus[index])){
+                        p.fallingBonus[index].exec();
+                        p.fallingBonus[index].isAlive = false;
+                        return true;
+                    }
+                    return false;
+                }
+
             };
             watek.start();
 

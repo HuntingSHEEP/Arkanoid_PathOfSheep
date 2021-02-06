@@ -44,7 +44,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
       for (int i=0; i<liczba_kafelek; i++){
           k[i]=new Kafelka(this, i%columns, i/columns, 650/columns);
-          fallingBonus[i] = new Bonus(i%columns, i/columns, 650/columns);
+          fallingBonus[i] = new Bonus(this,i%columns, i/columns, 650/columns);
       }
       loadTextures();
    }
@@ -77,9 +77,6 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
        if (!game_over){
            g2d.drawString("SCORE: "+score, 20, 300);
 
-           g2d.setPaint(new Color(0, 51, 51));
-           g2d.fill(a);
-
            g2d.setPaint(barColor);
            g2d.fill(b);
            g2d.setPaint(new GradientPaint(b.x,b.y, new Color(32,178,170), b.x+(int)(b.width*b.roundPercentage), b.y+b.height, barColor));
@@ -92,12 +89,9 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
            for(int i=0; i<liczba_kafelek; i++){
 
                if (fallingBonus[i].isAlive){
-                   System.out.println("I'M ALIVE!");
-                   //if (fallingBonus[i].type == 1)
-                   g2d.setPaint(Color.GREEN);
+                   g2d.setPaint(fallingBonus[i].getTexture());
                    g2d.fill(fallingBonus[i]);
                }
-
 
                if (k[i].flaga_ZYCIA > 0){
                    if (k[i].flaga_ZYCIA==1)
@@ -108,6 +102,9 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
                    g2d.fill(k[i]);
                }
            }
+
+           g2d.setPaint(new Color(0, 51, 51));
+           g2d.fill(a);
 
       }else{
          s.running = false;
