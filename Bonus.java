@@ -66,6 +66,16 @@ public class Bonus extends Rectangle2D.Float
         }else if(type == 7){
             //STICKY BAR
             p.b.sticky=true;
+        }else if(type == 8){
+            //ADD BALL
+            for (int i=0; i<p.maxAmountOfBalls; i++){
+                if (!p.a[i].isAlive){
+                    p.a[i].isAlive=true;
+                    p.a[i].setX((int) p.b.x + (int) (p.b.width/2));
+                    p.ballCount++;
+                    i= p.maxAmountOfBalls+2;
+                }
+            }
         }
 
     }
@@ -87,6 +97,8 @@ public class Bonus extends Rectangle2D.Float
             return Color.magenta;
         if (type == 7)
             return new Color(51, 153, 102);
+        if (type == 8)
+            return new Color(0, 102, 102);
 
         return Color.DARK_GRAY;
     }
