@@ -31,4 +31,14 @@ public class Floor extends Rectangle2D.Float {
 
         return test1 || test2 || test3 || test4;
     }
+
+    public boolean intersects(Bonus q){
+        //TODO:[BUG] BELKA NIŻSZA OD BONUSU
+        boolean test1 = contains(q.x, q.y);
+        boolean test2 = contains(q.x+q.width, q.y);
+        boolean test3 = contains(q.x+q.width, q.y+q.height);
+        boolean test4 = contains(q.x, q.y+q.height);
+
+        return test1 || test2 || test3 || test4;
+    }
 }

@@ -8,6 +8,7 @@ class Belka extends Rectangle2D.Float
 {
    double roundPercentage = 0.2;
    double bounceAngle = 15;
+
    Belka(int x, int y)
    {
       this.x=x;

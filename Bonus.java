@@ -53,6 +53,10 @@ public class Bonus extends Rectangle2D.Float
 
         }else if(type == 5){
             p.floor.isAlive=true;
+
+        }else if(type == 6){
+            p.floor.isAlive=true;
+            p.floor.superFloor=true;
         }
 
     }
@@ -70,6 +74,8 @@ public class Bonus extends Rectangle2D.Float
             return Color.YELLOW;
         if (type == 5)
             return Color.BLACK;
+        if (type == 6)
+            return Color.magenta;
 
         return Color.DARK_GRAY;
     }

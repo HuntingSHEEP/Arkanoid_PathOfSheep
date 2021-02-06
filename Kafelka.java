@@ -28,8 +28,8 @@ class Kafelka extends Rectangle2D.Float
     public void createBonus(int index){
         if ( (0<=bonus) && (bonus <=10)){
 
-            //p.fallingBonus[index].type = bonus%6;
-            p.fallingBonus[index].type = 5;
+            p.fallingBonus[index].type = bonus%7;
+            //p.fallingBonus[index].type = 6;
             p.fallingBonus[index].isAlive = true;
 
             Thread watek = new Thread(){
@@ -38,6 +38,8 @@ class Kafelka extends Rectangle2D.Float
                         p.fallingBonus[index].y++;
                         waitSomeTime();
                         if(executeBarHit())
+                            i = 600;
+                        if(executeSuperFloorHit())
                             i = 600;
                     }
                     p.fallingBonus[index].isAlive = false;
@@ -57,6 +59,17 @@ class Kafelka extends Rectangle2D.Float
                         p.fallingBonus[index].exec();
                         p.fallingBonus[index].isAlive = false;
                         return true;
+                    }
+                    return false;
+                }
+
+                public boolean executeSuperFloorHit(){
+                    if(p.floor.superFloor){
+                        if(p.floor.intersects(p.fallingBonus[index])){
+                            p.fallingBonus[index].exec();
+                            p.fallingBonus[index].isAlive = false;
+                            return true;
+                        }
                     }
                     return false;
                 }
