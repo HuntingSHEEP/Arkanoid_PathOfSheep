@@ -63,8 +63,7 @@ class Kulka extends Ellipse2D.Float
                p.k[u].flaga_ZYCIA--;
                if (p.k[u].flaga_ZYCIA==0){
                    p.score++;
-                   p.k[u].createBonus();
-                   System.out.println("DONE");
+                   p.k[u].createBonus(u);
                }
                u=p.liczba_kafelek+1;
            }

@@ -25,9 +25,9 @@ class SilnikKulki extends Thread
          {
             a.nextKrok();
 
-            for (int i=0; i<1; i++){
+            for (int i=0; i<5; i++){
 
-              final long INTERVAL = delay * 5000000;
+              final long INTERVAL = delay * 1000000;
               long start = System.nanoTime();
               long end;
               do{

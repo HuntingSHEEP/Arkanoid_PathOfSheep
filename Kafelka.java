@@ -25,24 +25,30 @@ class Kafelka extends Rectangle2D.Float
         this.p = p;
     }
 
-    public void createBonus(){
-        System.out.println("CREATE BONUS!");
+    public void createBonus(int index){
         if ( (1<=bonus) && (bonus <=2)){
 
-            System.out.println("INSIDE IF");
+            p.fallingBonus[index].type = bonus;
+            p.fallingBonus[index].isAlive = true;
 
             Thread watek = new Thread(){
                 public void run(){
                     System.out.println("WĄTEK");
+
+                    for (int i=0; i<500; i++){
+                        p.fallingBonus[index].y++;
+
+                        final long INTERVAL =  10000000;
+                        long start = System.nanoTime();
+                        long end;
+                        do{
+                            end = System.nanoTime();
+                        }while(start + INTERVAL >= end);
+
                     }
+                }
             };
             watek.start();
-
-            for (int i=0; i<p.liczba_kafelek; i++){
-                if (p.fallingBonus[i].type == 0) {
-                    p.fallingBonus[i].type = bonus;
-                }
-            }
 
         }
     }

@@ -44,7 +44,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
       for (int i=0; i<liczba_kafelek; i++){
           k[i]=new Kafelka(this, i%columns, i/columns, 650/columns);
-          fallingBonus[i] = new Bonus(i%columns, i/columns);
+          fallingBonus[i] = new Bonus(i%columns, i/columns, 650/columns);
       }
       loadTextures();
    }
@@ -90,6 +90,15 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
 
            for(int i=0; i<liczba_kafelek; i++){
+
+               if (fallingBonus[i].isAlive){
+                   System.out.println("I'M ALIVE!");
+                   //if (fallingBonus[i].type == 1)
+                   g2d.setPaint(Color.GREEN);
+                   g2d.fill(fallingBonus[i]);
+               }
+
+
                if (k[i].flaga_ZYCIA > 0){
                    if (k[i].flaga_ZYCIA==1)
                        g2d.setPaint(brickTexture0);
