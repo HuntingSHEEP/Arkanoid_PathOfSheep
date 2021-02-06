@@ -66,6 +66,8 @@ public class Bonus extends Rectangle2D.Float
         }else if(type == 7){
             //STICKY BAR
             p.b.sticky=true;
+            p.bonusEngine.stickyBarCycles += 30 * 10;
+
         }else if(type == 8){
             //ADD BALL
             for (int i=0; i<p.maxAmountOfBalls; i++){
@@ -76,6 +78,13 @@ public class Bonus extends Rectangle2D.Float
                     i= p.maxAmountOfBalls+2;
                 }
             }
+        }else if(type == 9){
+            //FIRE BALL VEL DUM-DUM
+            p.bonusEngine.fireBallCycles += 12*10;
+            for (int i=0; i<p.maxAmountOfBalls; i++){
+                p.a[i].ballType = 1;
+            }
+
         }
 
     }
@@ -99,6 +108,8 @@ public class Bonus extends Rectangle2D.Float
             return new Color(51, 153, 102);
         if (type == 8)
             return new Color(0, 102, 102);
+        if (type == 9)
+            return new Color(255, 83, 26);
 
         return Color.DARK_GRAY;
     }

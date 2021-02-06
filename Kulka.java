@@ -1,5 +1,6 @@
 import java.awt.geom.*;
 import java.lang.Math;
+import java.awt.*;
 
 class Kulka extends Ellipse2D.Float
 {
@@ -8,6 +9,10 @@ class Kulka extends Ellipse2D.Float
    boolean inBar = false;
    boolean isAlive;
    boolean isFlying=false;
+   Color normalBall = new Color(0, 51, 51);
+   Color fireBall = new Color(255, 83, 26);
+   int ballType = 0;
+
 
    Kulka(Plansza p,int x,int y,double dx,double dy, boolean isAlive)
    {
@@ -20,7 +25,13 @@ class Kulka extends Ellipse2D.Float
       this.dx=dx;
       this.dy=dy;
       this.isAlive=isAlive;
+   }
 
+   public Color getTexture(){
+       if(ballType == 1)
+           return fireBall;
+
+       return normalBall;
    }
 
    void setX(int x){
@@ -83,9 +94,15 @@ class Kulka extends Ellipse2D.Float
        //TODO: [BASIC FEATURE] ODBICIE OD BOCZNYCH KRAWĘDZI
        for(int u=0; u<p.liczba_kafelek; u++){
            if(p.k[u].intersects(this) && (p.k[u].flaga_ZYCIA>0)){
-               System.out.println("BOUNCED FROM BRICK!");
-               dy=-dy;
-               p.k[u].flaga_ZYCIA--;
+               if(p.a[0].ballType == 0){
+                   System.out.println("BOUNCED FROM BRICK!");
+                   dy=-dy;
+                   p.k[u].flaga_ZYCIA--;
+               }else if(p.a[0].ballType == 1){
+                   System.out.println("BRICK IS BURNED DOWN!");
+                   p.k[u].flaga_ZYCIA=0;
+               }
+
                if (p.k[u].flaga_ZYCIA==0){
                    p.score++;
                    p.k[u].createBonus(u);

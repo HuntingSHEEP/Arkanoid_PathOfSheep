@@ -27,7 +27,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
     TexturePaint brickTexture1;
 
     SilnikKulki s;
-    FloorEngine floorEngine ;
+    bonusEngine bonusEngine;
 
     int rows = 3;
     int columns = 12;
@@ -48,7 +48,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
       b=new Belka(325-40, 430);
       floor=new Floor(this, 0, 455, 650);
-      floorEngine = new FloorEngine(this);
+      bonusEngine = new bonusEngine(this);
 
       for(int w=0; w<maxAmountOfBalls; w++)
         a[w]=new Kulka(this,325-5,420,0,-2, false);
@@ -122,7 +122,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
                }
            }
 
-           g2d.setPaint(new Color(0, 51, 51));
+           g2d.setPaint(a[0].getTexture());
            for(int i=0; i<maxAmountOfBalls; i++){
                if(a[i].isAlive)
                     g2d.fill(a[i]);
@@ -131,7 +131,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
       }else{
          s.running = false;
-         floorEngine.running=false;
+         bonusEngine.running=false;
          g2d.setPaint(Color.BLUE);
          g2d.drawString("GAME OVER", 100, 300);
       }
