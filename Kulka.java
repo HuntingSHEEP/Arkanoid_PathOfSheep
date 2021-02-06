@@ -5,8 +5,9 @@ class Kulka extends Ellipse2D.Float
    Plansza p;
    double dx,dy;
    boolean inBar = false;
+   boolean isAlive;
 
-   Kulka(Plansza p,int x,int y,double dx,double dy)
+   Kulka(Plansza p,int x,int y,double dx,double dy, boolean isAlive)
    {
       this.x=x;
       this.y=y;
@@ -16,6 +17,7 @@ class Kulka extends Ellipse2D.Float
       this.p=p;
       this.dx=dx;
       this.dy=dy;
+      this.isAlive=isAlive;
    }
 
    void setX(int x){
@@ -34,6 +36,7 @@ class Kulka extends Ellipse2D.Float
        if(getMinX()<0 || getMaxX()>p.getWidth())  dx=-dx;
        if(getMinY()<0) dy=-dy;
        if((getMinY()>p.getHeight()) && (p.getHeight()>5) ){
+           //TODO: ADAPT TO MANY BALLS (BALL COUNT)
            p.game_over = true;
        }
 

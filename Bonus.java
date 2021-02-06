@@ -52,9 +52,14 @@ public class Bonus extends Rectangle2D.Float
             }
 
         }else if(type == 5){
+            //FLOOR
+            p.floor.lifeCycles+=10*25;
             p.floor.isAlive=true;
 
+
         }else if(type == 6){
+            //SUPER FLOOR
+            p.floor.lifeCycles+=10*25;
             p.floor.isAlive=true;
             p.floor.superFloor=true;
         }

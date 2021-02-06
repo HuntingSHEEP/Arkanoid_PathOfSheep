@@ -1,17 +1,14 @@
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.awt.geom.*;
+
 
 class SilnikKulki extends Thread
 {
-   Kulka a;
+   Kulka[] a;
    Plansza p;
    boolean running = true;
    double delay = 1;
    int delayCount=0;
 
-   SilnikKulki(Plansza p,Kulka a)
+   SilnikKulki(Plansza p,Kulka[] a)
    {
       this.a=a;
       this.p=p;
@@ -24,7 +21,12 @@ class SilnikKulki extends Thread
       {
          while(running)
          {
-            a.nextKrok();
+             for(int w=0; w<p.maxAmountOfBalls; w++){
+                 if (a[w].isAlive){
+                     a[w].nextKrok();
+                 }
+             }
+
 
             if (delayCount>0)
                 delayCount--;

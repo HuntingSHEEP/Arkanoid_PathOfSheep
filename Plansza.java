@@ -9,8 +9,10 @@ import java.io.*;
 
 class Plansza extends JPanel implements MouseMotionListener, MouseListener
 {
+    int maxAmountOfBalls = 10;
+    int ballCount = 1;
     Belka b;
-    Kulka a;
+    Kulka[] a = new Kulka[maxAmountOfBalls];
     Color barColor;
     Floor floor;
 
@@ -23,6 +25,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
     TexturePaint brickTexture1;
 
     SilnikKulki s;
+    FloorEngine floorEngine ;
 
     int rows = 3;
     int columns = 12;
@@ -40,9 +43,14 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
       addMouseMotionListener(this);
       addMouseListener(this);
 
+
       b=new Belka(325-40, 430);
-      a=new Kulka(this,325-5,420,0,-2);
       floor=new Floor(this, 0, 455, 650);
+      floorEngine = new FloorEngine(this);
+
+      for(int w=0; w<maxAmountOfBalls; w++)
+        a[w]=new Kulka(this,325-5,420,0,-2, false);
+      a[0].isAlive=true;
 
       for (int i=0; i<liczba_kafelek; i++){
           k[i]=new Kafelka(this, i%columns, i/columns, 650/columns);
@@ -110,10 +118,15 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
            }
 
            g2d.setPaint(new Color(0, 51, 51));
-           g2d.fill(a);
+           for(int i=0; i<maxAmountOfBalls; i++){
+               if(a[i].isAlive)
+                    g2d.fill(a[i]);
+           }
+
 
       }else{
          s.running = false;
+         floorEngine.running=false;
          g2d.setPaint(Color.BLUE);
          g2d.drawString("GAME OVER", 100, 300);
       }
@@ -123,10 +136,10 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
    public void mouseMoved(MouseEvent e)
    {
        if (!engineStartFlag){
-           a.setX(e.getX()-(int) a.width/2);
-           a.setY(getSize().height - 30);
+           a[0].setX(e.getX()-(int) a[0].width/2);
+           a[0].setY(getSize().height - 30 -13);
        }
-       b.setY(getSize().height - 20);
+       b.setY(getSize().height - 20-13);
        b.setX(e.getX()-(int) b.width/2);
        if (!engineStartFlag)
            repaint();

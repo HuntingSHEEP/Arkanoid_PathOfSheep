@@ -5,6 +5,7 @@ public class Floor extends Rectangle2D.Float {
     Plansza p;
     boolean isAlive;
     boolean superFloor;
+    int lifeCycles = 0;
 
     Floor(Plansza p, int x, int y, int width)
     {
