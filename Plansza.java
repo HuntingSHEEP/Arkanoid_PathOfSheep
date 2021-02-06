@@ -27,7 +27,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
     TexturePaint brickTexture1;
 
     SilnikKulki s;
-    bonusEngine bonusEngine;
+    BonusEngine bonusEngine;
 
     int rows = 3;
     int columns = 12;
@@ -48,7 +48,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
       b=new Belka(325-40, 430);
       floor=new Floor(this, 0, 455, 650);
-      bonusEngine = new bonusEngine(this);
+      bonusEngine = new BonusEngine(this);
 
       for(int w=0; w<maxAmountOfBalls; w++)
         a[w]=new Kulka(this,325-5,420,0,-2, false);

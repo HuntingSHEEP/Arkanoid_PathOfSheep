@@ -1,11 +1,11 @@
-public class bonusEngine extends Thread {
+public class BonusEngine extends Thread {
     boolean running=true;
     int fireBallCycles = 0;
     int stickyBarCycles = 0;
 
     Plansza p;
 
-    bonusEngine(Plansza p){
+    BonusEngine(Plansza p){
         this.p = p;
         start();
     }
