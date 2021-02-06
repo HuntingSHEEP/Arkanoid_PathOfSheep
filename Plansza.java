@@ -27,6 +27,8 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
     int columns = 12;
     int liczba_kafelek = columns * rows;
     Kafelka[] k = new Kafelka[liczba_kafelek];
+    Bonus [] fallingBonus = new Bonus[liczba_kafelek];
+    //TODO: CREATE ONE THREAD TO HANDLE ALL BONUSES
     int score = 0;
     boolean game_over = false;
     boolean engineStartFlag = false;
@@ -42,8 +44,8 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
       for (int i=0; i<liczba_kafelek; i++){
           k[i]=new Kafelka(this, i%columns, i/columns, 650/columns);
+          fallingBonus[i] = new Bonus(i%columns, i/columns);
       }
-
       loadTextures();
    }
 
@@ -70,6 +72,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
    {
        super.paintComponent(g);
        Graphics2D g2d=(Graphics2D)g;
+
 
        if (!game_over){
            g2d.drawString("SCORE: "+score, 20, 300);

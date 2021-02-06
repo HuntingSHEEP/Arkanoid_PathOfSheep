@@ -2,12 +2,14 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.geom.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 class Kafelka extends Rectangle2D.Float
 {
   Plansza p;
   int margines;
   int flaga_ZYCIA;
+  int bonus;
 
 
     Kafelka(Plansza p, int x, int y, int width)
@@ -18,6 +20,31 @@ class Kafelka extends Rectangle2D.Float
         this.x=x*(this.width+this.margines)+this.margines;
         this.y=y*(this.height+this.margines)+this.margines;
         this.flaga_ZYCIA=2;
+        //bonus = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+        bonus = 1;
+        this.p = p;
+    }
+
+    public void createBonus(){
+        System.out.println("CREATE BONUS!");
+        if ( (1<=bonus) && (bonus <=2)){
+
+            System.out.println("INSIDE IF");
+
+            Thread watek = new Thread(){
+                public void run(){
+                    System.out.println("WĄTEK");
+                    }
+            };
+            watek.start();
+
+            for (int i=0; i<p.liczba_kafelek; i++){
+                if (p.fallingBonus[i].type == 0) {
+                    p.fallingBonus[i].type = bonus;
+                }
+            }
+
+        }
     }
 
     public boolean contains(double x, double y){
