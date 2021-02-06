@@ -16,6 +16,8 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
     Color barColor;
     Floor floor;
 
+    int lastMousePositionX = 325;
+
     String brickTextureSource0 ="textures/Fabric026_1K_Color.jpg";
     BufferedImage brickTextureImage0;
     TexturePaint brickTexture0;
@@ -51,6 +53,9 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
       for(int w=0; w<maxAmountOfBalls; w++)
         a[w]=new Kulka(this,325-5,420,0,-2, false);
       a[0].isAlive=true;
+      a[1].isAlive=true;
+      ballCount++;
+      a[1].addDeltaX(10);
 
       for (int i=0; i<liczba_kafelek; i++){
           k[i]=new Kafelka(this, i%columns, i/columns, 650/columns);
@@ -135,14 +140,23 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
    public void mouseMoved(MouseEvent e)
    {
-       if (!engineStartFlag){
-           a[0].setX(e.getX()-(int) a[0].width/2);
-           a[0].setY(getSize().height - 30 -13);
+       int mousePositionX=e.getX();
+
+       for(int i=0; i<maxAmountOfBalls; i++){
+           if(a[i].isAlive){
+               if(!a[i].isFlying){
+                   a[i].addDeltaX(-(lastMousePositionX-mousePositionX));
+                   a[i].setY(getSize().height - 30 -13);
+               }
+           }
        }
+
        b.setY(getSize().height - 20-13);
        b.setX(e.getX()-(int) b.width/2);
        if (!engineStartFlag)
            repaint();
+
+       lastMousePositionX=mousePositionX;
    }
 
 
@@ -151,6 +165,15 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
         if(!engineStartFlag){
             engineStartFlag =true;
             s=new SilnikKulki(this, a);
+        }
+
+        for(int w=0; w<maxAmountOfBalls; w++){
+            if(a[w].isAlive){
+                if(!a[w].isFlying){
+                    a[w].isFlying = true;
+                    w=maxAmountOfBalls+10;
+                }
+            }
         }
     }
 

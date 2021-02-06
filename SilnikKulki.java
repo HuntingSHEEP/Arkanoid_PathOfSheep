@@ -8,6 +8,7 @@ class SilnikKulki extends Thread
    double delay = 1;
    int delayCount=0;
 
+
    SilnikKulki(Plansza p,Kulka[] a)
    {
       this.a=a;
@@ -23,7 +24,9 @@ class SilnikKulki extends Thread
          {
              for(int w=0; w<p.maxAmountOfBalls; w++){
                  if (a[w].isAlive){
-                     a[w].nextKrok();
+                     if(a[w].isFlying){
+                         a[w].nextKrok();
+                     }
                  }
              }
 

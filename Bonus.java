@@ -62,6 +62,10 @@ public class Bonus extends Rectangle2D.Float
             p.floor.lifeCycles+=10*25;
             p.floor.isAlive=true;
             p.floor.superFloor=true;
+
+        }else if(type == 7){
+            //STICKY BAR
+            p.b.sticky=true;
         }
 
     }
@@ -81,6 +85,8 @@ public class Bonus extends Rectangle2D.Float
             return Color.BLACK;
         if (type == 6)
             return Color.magenta;
+        if (type == 7)
+            return new Color(51, 153, 102);
 
         return Color.DARK_GRAY;
     }

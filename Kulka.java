@@ -1,4 +1,5 @@
 import java.awt.geom.*;
+import java.lang.Math;
 
 class Kulka extends Ellipse2D.Float
 {
@@ -6,6 +7,7 @@ class Kulka extends Ellipse2D.Float
    double dx,dy;
    boolean inBar = false;
    boolean isAlive;
+   boolean isFlying=false;
 
    Kulka(Plansza p,int x,int y,double dx,double dy, boolean isAlive)
    {
@@ -18,6 +20,7 @@ class Kulka extends Ellipse2D.Float
       this.dx=dx;
       this.dy=dy;
       this.isAlive=isAlive;
+
    }
 
    void setX(int x){
@@ -28,16 +31,27 @@ class Kulka extends Ellipse2D.Float
        this.y = y;
    }
 
+   void addDeltaX(int dx){
+       this.x += dx;
+   }
+
    void nextKrok()
    {
        x+=dx;
        y+=dy;
-
+        //TODO: FIX BALL IN WALL BUG
        if(getMinX()<0 || getMaxX()>p.getWidth())  dx=-dx;
-       if(getMinY()<0) dy=-dy;
-       if((getMinY()>p.getHeight()) && (p.getHeight()>5) ){
-           //TODO: ADAPT TO MANY BALLS (BALL COUNT)
-           p.game_over = true;
+       if(getMinY()<0){
+           if(dy<0){
+               dy=-dy;
+           }
+       }
+
+       if((getMinY()>p.getHeight()) && (p.getHeight()>5)){
+           isAlive=false;
+           p.ballCount--;
+           if(p.ballCount==0)
+               p.game_over = true;
        }
 
        bounceFromBar();
@@ -50,8 +64,14 @@ class Kulka extends Ellipse2D.Float
    void bounceFromBar(){
        if (p.b.intersects(this) && !inBar){
            dy=-dy;
-           inBar=true;
 
+           if(p.b.sticky){
+               isFlying=false;
+               double velocity = Math.sqrt(dx*dx + dy*dy);
+               dx=0;
+               dy=-velocity;
+           }
+           inBar=true;
            p.b.changeAngle(this);
 
        }else if(! p.b.intersects(this)){
@@ -63,6 +83,7 @@ class Kulka extends Ellipse2D.Float
        //TODO: [BASIC FEATURE] ODBICIE OD BOCZNYCH KRAWĘDZI
        for(int u=0; u<p.liczba_kafelek; u++){
            if(p.k[u].intersects(this) && (p.k[u].flaga_ZYCIA>0)){
+               System.out.println("BOUNCED FROM BRICK!");
                dy=-dy;
                p.k[u].flaga_ZYCIA--;
                if (p.k[u].flaga_ZYCIA==0){

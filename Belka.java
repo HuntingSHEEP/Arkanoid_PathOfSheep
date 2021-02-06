@@ -1,6 +1,4 @@
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
+
 import java.awt.geom.*;
 import java.lang.Math;
 
@@ -8,6 +6,7 @@ class Belka extends Rectangle2D.Float
 {
    double roundPercentage = 0.2;
    double bounceAngle = 15;
+   boolean sticky = false;
 
    Belka(int x, int y)
    {
