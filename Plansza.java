@@ -44,6 +44,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
       super();
       addMouseMotionListener(this);
       addMouseListener(this);
+      setBackground(new Color(67, 65, 75));
 
 
       b=new Belka(325-40, 430);
@@ -86,6 +87,13 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
    public void paintComponent(Graphics g)
    {
        super.paintComponent(g);
+       ImageIcon img = new ImageIcon("textures/woodenBackground.jpg");
+
+       if (img != null)
+       {
+           g.drawImage(img.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+       }
+
        Graphics2D g2d=(Graphics2D)g;
 
 
@@ -126,6 +134,16 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
            for(int i=0; i<maxAmountOfBalls; i++){
                if(a[i].isAlive)
                     g2d.fill(a[i]);
+           }
+
+           if (!engineStartFlag){
+               g2d.setPaint(new Color(63, 75, 68));
+               g.setFont(new Font("Dialog", Font.BOLD, 20));
+               g2d.drawString("LEFT CLICK", 150, 320);
+
+               g2d.setPaint(new Color(76, 57, 74));
+               g.setFont(new Font("Dialog", Font.BOLD, 17));
+               g2d.drawString("TO SHOOT THE BALL!", 300, 320);
            }
 
 
