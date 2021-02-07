@@ -63,13 +63,14 @@ class Kafelka extends Rectangle2D.Float
                 }
 
                 public boolean executeSuperFloorHit(){
-                    if(p.floor.superFloor){
+                    if(p.floor.superFloor && p.floor.isAlive){
                         if(p.floor.intersects(p.fallingBonus[index])){
                             p.fallingBonus[index].exec();
                             p.fallingBonus[index].isAlive = false;
                             return true;
                         }
                     }
+
                     return false;
                 }
 

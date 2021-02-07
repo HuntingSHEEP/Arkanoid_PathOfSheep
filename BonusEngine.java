@@ -20,6 +20,7 @@ public class BonusEngine extends Thread {
                     if(p.floor.lifeCycles == 0){
                         System.out.println("Dead Floor cycles: "+ p.floor.lifeCycles);
                         p.floor.isAlive=false;
+                        p.floor.superFloor=false;
                     }else if(p.floor.lifeCycles > 0){
 
                         p.floor.lifeCycles--;
