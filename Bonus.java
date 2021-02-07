@@ -1,22 +1,48 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Bonus extends Rectangle2D.Float
 {
     Plansza p;
+    BufferedImage[] textures;
+
     boolean isAlive = false;
     int heightMargin, widthMargin;
     int type = -1;
 
     Bonus(Plansza p, int x, int y, int width){
-        this.heightMargin = 10;
-        this.widthMargin = 2*12;
+        this.heightMargin = 1;
+        this.widthMargin = 2*6;
 
         this.width=width-this.widthMargin;
         this.height=20-this.heightMargin;
         this.x=x*(this.width+this.widthMargin) + (int) (this.widthMargin/2);
         this.y=y*(this.height+this.heightMargin)+this.heightMargin;
         this.p=p;
+
+        textures = new BufferedImage[10];
+        loadTextures();
+    }
+
+    private void loadTextures() {
+        String[] pliki ={"textures/redBall.png", "textures/extendBar.png", "textures/shortenBar.png", "textures/extendRoundZone.png", "textures/shortenRoundZone.png",  "textures/floor.png", "textures/superFloor.png" ,"textures/stickyBar.png","textures/addBall.png","textures/fireBall.png"};
+
+        try
+        {
+            for (int i=0; i<10; i++){
+                File f=new File(pliki[i]);
+                textures[i] = ImageIO.read(f);
+            }
+
+        }
+        catch(IOException e)
+        {
+            System.err.println("Problem z pobraniem tekstury: "+e);
+        }
     }
 
     public void exec(){
@@ -59,28 +85,33 @@ public class Bonus extends Rectangle2D.Float
 
         }else if(type == 6){
             //SUPER FLOOR
-            p.floor.lifeCycles+=10*25;
+            p.floor.lifeCycles+=10*5;
             p.floor.isAlive=true;
             p.floor.superFloor=true;
 
         }else if(type == 7){
             //STICKY BAR
             p.b.sticky=true;
-            p.bonusEngine.stickyBarCycles += 30 * 10;
+            p.bonusEngine.stickyBarCycles += 5 * 10;
+            System.out.println("++ CYCLES :"+p.bonusEngine.stickyBarCycles);
 
         }else if(type == 8){
             //ADD BALL
             for (int i=0; i<p.maxAmountOfBalls; i++){
+                //TODO: [BUG] FIX MAX AMOUNT OF BALLS
                 if (!p.a[i].isAlive){
                     p.a[i].isAlive=true;
+                    p.a[i].isFlying=false;
                     p.a[i].setX((int) p.b.x + (int) (p.b.width/2));
+                    p.a[i].setY((int) p.b.y - 10);
+                    p.a[i].setDXDY(0, -p.a[i].getSpeed());
                     p.ballCount++;
                     i= p.maxAmountOfBalls+2;
                 }
             }
         }else if(type == 9){
             //FIRE BALL VEL DUM-DUM
-            p.bonusEngine.fireBallCycles += 12*10;
+            p.bonusEngine.fireBallCycles += 5*10;
             for (int i=0; i<p.maxAmountOfBalls; i++){
                 p.a[i].ballType = 1;
             }
@@ -89,28 +120,7 @@ public class Bonus extends Rectangle2D.Float
 
     }
 
-    public Color getTexture(){
-        if (type == 0)
-            return new Color(50, 2, 2);
-        if (type == 1)
-            return Color.GREEN;
-        if (type == 2)
-            return Color.BLUE;
-        if (type == 3)
-            return Color.CYAN;
-        if (type == 4)
-            return Color.YELLOW;
-        if (type == 5)
-            return Color.BLACK;
-        if (type == 6)
-            return Color.magenta;
-        if (type == 7)
-            return new Color(51, 153, 102);
-        if (type == 8)
-            return new Color(0, 102, 102);
-        if (type == 9)
-            return new Color(255, 83, 26);
-
-        return Color.DARK_GRAY;
+    public BufferedImage getTexture(){
+       return textures[type];
     }
 }

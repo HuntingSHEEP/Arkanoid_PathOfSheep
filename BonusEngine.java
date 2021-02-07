@@ -12,13 +12,18 @@ public class BonusEngine extends Thread {
 
     public void run(){
         try{
+            System.out.println("START ENGINE");
             while(running){
+
 
                 if (p.floor.isAlive){
                     if(p.floor.lifeCycles == 0){
+                        System.out.println("Dead Floor cycles: "+ p.floor.lifeCycles);
                         p.floor.isAlive=false;
                     }else if(p.floor.lifeCycles > 0){
+
                         p.floor.lifeCycles--;
+                        System.out.println("Floor cycles: "+ p.floor.lifeCycles);
                     }
                 }
 
@@ -32,6 +37,7 @@ public class BonusEngine extends Thread {
 
                 if(stickyBarCycles>0){
                     stickyBarCycles--;
+                    System.out.println("Sticky bar cycles: "+ stickyBarCycles);
                 }else{
                     p.b.sticky=false;
                 }

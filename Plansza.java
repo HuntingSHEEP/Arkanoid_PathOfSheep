@@ -94,7 +94,6 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
        Graphics2D g2d=(Graphics2D)g;
 
-
        if (!game_over){
            if (engineStartFlag){
                g2d.setPaint(new Color(63, 75, 68));
@@ -119,7 +118,8 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
            for(int i=0; i<liczba_kafelek; i++){
 
                if (fallingBonus[i].isAlive){
-                   g2d.setPaint(fallingBonus[i].getTexture());
+                   //g2d.setPaint(fallingBonus[i].getTexture());
+                   g2d.setPaint(new TexturePaint(fallingBonus[i].getTexture(), (Rectangle2D) fallingBonus[i]));
                    g2d.fill(fallingBonus[i]);
                }
 
@@ -155,7 +155,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
          bonusEngine.running=false;
          g2d.setPaint(new Color(76, 57, 74));
          g.setFont(new Font("Dialog", Font.BOLD, 20));
-         g2d.drawString("GAME OVER", getSize().width/2 - 60, getSize().height/2+30);
+         g2d.drawString("GAME OVER", getSize().width/2 - 65, getSize().height/2+30);
       }
 
    }

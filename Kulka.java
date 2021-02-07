@@ -10,7 +10,7 @@ class Kulka extends Ellipse2D.Float
    boolean isAlive;
    boolean isFlying=false;
    Color normalBall = new Color(0, 51, 51);
-   Color fireBall = new Color(255, 83, 26);
+   Color fireBall = new Color(250, 81, 2);
    int ballType = 0;
 
 
@@ -40,6 +40,15 @@ class Kulka extends Ellipse2D.Float
 
    void setY(int y){
        this.y = y;
+   }
+
+   void setDXDY (double dx, double dy){
+       this.dx = dx;
+       this.dy = dy;
+   }
+
+   public double getSpeed(){
+       return Math.sqrt(dx*dx + dy*dy);
    }
 
    void addDeltaX(int dx){
@@ -95,7 +104,7 @@ class Kulka extends Ellipse2D.Float
        for(int u=0; u<p.liczba_kafelek; u++){
            if(p.k[u].intersects(this) && (p.k[u].flaga_ZYCIA>0)){
                if(p.a[0].ballType == 0){
-                   System.out.println("BOUNCED FROM BRICK!");
+                   //System.out.println("BOUNCED FROM BRICK!");
                    dy=-dy;
                    p.k[u].flaga_ZYCIA--;
                }else if(p.a[0].ballType == 1){

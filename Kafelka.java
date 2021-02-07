@@ -11,7 +11,6 @@ class Kafelka extends Rectangle2D.Float
   int flaga_ZYCIA;
   int bonus;
 
-
     Kafelka(Plansza p, int x, int y, int width)
     {
         this.margines=2;
@@ -29,7 +28,7 @@ class Kafelka extends Rectangle2D.Float
         if ( (0<=bonus) && (bonus <=10)){
 
             p.fallingBonus[index].type = bonus%10;
-            p.fallingBonus[index].type = 5;
+            //p.fallingBonus[index].type = 5;
             p.fallingBonus[index].isAlive = true;
 
             Thread watek = new Thread(){
