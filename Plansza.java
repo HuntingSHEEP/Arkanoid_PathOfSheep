@@ -32,6 +32,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
     int rows = 3;
     int columns = 12;
     int liczba_kafelek = columns * rows;
+    int livingBricks = liczba_kafelek;
     Kafelka[] k = new Kafelka[liczba_kafelek];
     Bonus [] fallingBonus = new Bonus[liczba_kafelek];
     //TODO: CREATE ONE THREAD TO HANDLE ALL BONUSES
@@ -94,69 +95,81 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
 
        Graphics2D g2d=(Graphics2D)g;
 
-       if (!game_over){
-           if (engineStartFlag){
-               g2d.setPaint(new Color(63, 75, 68));
-               g.setFont(new Font("Dialog", Font.BOLD, 15));
-               g2d.drawString("SCORE: "+score, 20, 360);
-           }
+       if (livingBricks==0){
+           s.running = false;
+           bonusEngine.running=false;
+           g2d.setPaint(new Color(63, 75, 68));
+           g.setFont(new Font("Dialog", Font.BOLD, 20));
+           g2d.drawString("YOU WON!", getSize().width/2 - 65, getSize().height/2+30);
+           g2d.drawString("SCORE: " + score, getSize().width/2 - 65, getSize().height/2+60);
 
+       }else{
 
-           g2d.setPaint(barColor);
-           g2d.fill(b);
-           g2d.setPaint(new GradientPaint(b.x,b.y, new Color(32,178,170), b.x+(int)(b.width*b.roundPercentage), b.y+b.height, barColor));
-
-           g2d.fill(new Rectangle2D.Float(b.x, b.y,(int) (b.width * b.roundPercentage), b.height));
-           g2d.setPaint(new GradientPaint((b.x + (int) (b.width*(1- b.roundPercentage))) ,b.y, barColor, b.x+ b.width, b.y+b.height, new Color(32,178,170)));
-           g2d.fill(new Rectangle2D.Float((b.x + (int) (b.width*(1- b.roundPercentage))) ,b.y, (int) (b.width * b.roundPercentage), b.height));
-
-           if(floor.isAlive){
-               g2d.setPaint(floor.getTexture());
-               g2d.fill(floor);
-           }
-
-           for(int i=0; i<liczba_kafelek; i++){
-
-               if (fallingBonus[i].isAlive){
-                   //g2d.setPaint(fallingBonus[i].getTexture());
-                   g2d.setPaint(new TexturePaint(fallingBonus[i].getTexture(), (Rectangle2D) fallingBonus[i]));
-                   g2d.fill(fallingBonus[i]);
+           if (!game_over){
+               if (engineStartFlag){
+                   g2d.setPaint(new Color(63, 75, 68));
+                   g.setFont(new Font("Dialog", Font.BOLD, 15));
+                   g2d.drawString("SCORE: "+score, 20, 360);
                }
 
-               if (k[i].flaga_ZYCIA > 0){
-                   if (k[i].flaga_ZYCIA==1)
-                       g2d.setPaint(brickTexture0);
-                   else if (k[i].flaga_ZYCIA==2){
-                       g2d.setPaint(brickTexture1);
+
+               g2d.setPaint(barColor);
+               g2d.fill(b);
+               g2d.setPaint(new GradientPaint(b.x,b.y, new Color(32,178,170), b.x+(int)(b.width*b.roundPercentage), b.y+b.height, barColor));
+
+               g2d.fill(new Rectangle2D.Float(b.x, b.y,(int) (b.width * b.roundPercentage), b.height));
+               g2d.setPaint(new GradientPaint((b.x + (int) (b.width*(1- b.roundPercentage))) ,b.y, barColor, b.x+ b.width, b.y+b.height, new Color(32,178,170)));
+               g2d.fill(new Rectangle2D.Float((b.x + (int) (b.width*(1- b.roundPercentage))) ,b.y, (int) (b.width * b.roundPercentage), b.height));
+
+               if(floor.isAlive){
+                   g2d.setPaint(floor.getTexture());
+                   g2d.fill(floor);
+               }
+
+               for(int i=0; i<liczba_kafelek; i++){
+
+                   if (fallingBonus[i].isAlive){
+                       //g2d.setPaint(fallingBonus[i].getTexture());
+                       g2d.setPaint(new TexturePaint(fallingBonus[i].getTexture(), (Rectangle2D) fallingBonus[i]));
+                       g2d.fill(fallingBonus[i]);
                    }
-                   g2d.fill(k[i]);
+
+                   if (k[i].flaga_ZYCIA > 0){
+                       if (k[i].flaga_ZYCIA==1)
+                           g2d.setPaint(brickTexture0);
+                       else if (k[i].flaga_ZYCIA==2){
+                           g2d.setPaint(brickTexture1);
+                       }
+                       g2d.fill(k[i]);
+                   }
                }
-           }
 
-           g2d.setPaint(a[0].getTexture());
-           for(int i=0; i<maxAmountOfBalls; i++){
-               if(a[i].isAlive)
-                    g2d.fill(a[i]);
-           }
+               g2d.setPaint(a[0].getTexture());
+               for(int i=0; i<maxAmountOfBalls; i++){
+                   if(a[i].isAlive)
+                        g2d.fill(a[i]);
+               }
 
-           if (!engineStartFlag){
-               g2d.setPaint(new Color(63, 75, 68));
-               g.setFont(new Font("Dialog", Font.BOLD, 20));
-               g2d.drawString("LEFT CLICK", 150, 320);
+               if (!engineStartFlag){
+                   g2d.setPaint(new Color(63, 75, 68));
+                   g.setFont(new Font("Dialog", Font.BOLD, 20));
+                   g2d.drawString("LEFT CLICK", 150, 320);
 
-               g2d.setPaint(new Color(76, 57, 74));
-               g.setFont(new Font("Dialog", Font.BOLD, 17));
-               g2d.drawString("TO SHOOT THE BALL!", 300, 320);
-           }
+                   g2d.setPaint(new Color(76, 57, 74));
+                   g.setFont(new Font("Dialog", Font.BOLD, 17));
+                   g2d.drawString("TO SHOOT THE BALL!", 300, 320);
+               }
 
 
-      }else{
-         s.running = false;
-         bonusEngine.running=false;
-         g2d.setPaint(new Color(76, 57, 74));
-         g.setFont(new Font("Dialog", Font.BOLD, 20));
-         g2d.drawString("GAME OVER", getSize().width/2 - 65, getSize().height/2+30);
-      }
+          }else{
+             s.running = false;
+             bonusEngine.running=false;
+             g2d.setPaint(new Color(76, 57, 74));
+             g.setFont(new Font("Dialog", Font.BOLD, 20));
+             g2d.drawString("GAME OVER", getSize().width/2 - 65, getSize().height/2+30);
+          }
+
+       }
 
    }
 

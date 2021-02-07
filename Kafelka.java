@@ -19,7 +19,7 @@ class Kafelka extends Rectangle2D.Float
         this.x=x*(this.width+this.margines)+this.margines;
         this.y=y*(this.height+this.margines)+this.margines;
         this.flaga_ZYCIA=2;
-        bonus = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+        bonus = ThreadLocalRandom.current().nextInt(0, 20 + 1);
         //bonus = 1;
         this.p = p;
     }

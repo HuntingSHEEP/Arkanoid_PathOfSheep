@@ -79,20 +79,20 @@ public class Bonus extends Rectangle2D.Float
 
         }else if(type == 5){
             //FLOOR
-            p.floor.lifeCycles+=10*5;
+            p.floor.lifeCycles+=10*20;
             p.floor.isAlive=true;
 
 
         }else if(type == 6){
             //SUPER FLOOR
-            p.floor.lifeCycles+=10*5;
+            p.floor.lifeCycles+=10*20;
             p.floor.isAlive=true;
             p.floor.superFloor=true;
 
         }else if(type == 7){
             //STICKY BAR
             p.b.sticky=true;
-            p.bonusEngine.stickyBarCycles += 5 * 10;
+            p.bonusEngine.stickyBarCycles += 10 * 10;
             System.out.println("++ CYCLES :"+p.bonusEngine.stickyBarCycles);
 
         }else if(type == 8){
@@ -111,7 +111,7 @@ public class Bonus extends Rectangle2D.Float
             }
         }else if(type == 9){
             //FIRE BALL VEL DUM-DUM
-            p.bonusEngine.fireBallCycles += 5*10;
+            p.bonusEngine.fireBallCycles += 15*10;
             for (int i=0; i<p.maxAmountOfBalls; i++){
                 p.a[i].ballType = 1;
             }
