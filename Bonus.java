@@ -53,7 +53,7 @@ public class Bonus extends Rectangle2D.Float
 
         }else if(type == 5){
             //FLOOR
-            p.floor.lifeCycles+=10*25;
+            p.floor.lifeCycles+=10*5;
             p.floor.isAlive=true;
 
 
