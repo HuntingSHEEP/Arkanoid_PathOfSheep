@@ -44,6 +44,7 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
       super();
       addMouseMotionListener(this);
       addMouseListener(this);
+      setBackground(new Color(67, 65, 75));
 
 
       b=new Belka(325-40, 430);
@@ -53,8 +54,6 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
       for(int w=0; w<maxAmountOfBalls; w++)
         a[w]=new Kulka(this,325-5,420,0,-2, false);
       a[0].isAlive=true;
-      a[1].isAlive=true;
-      ballCount++;
       a[1].addDeltaX(10);
 
       for (int i=0; i<liczba_kafelek; i++){
@@ -86,11 +85,23 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
    public void paintComponent(Graphics g)
    {
        super.paintComponent(g);
+       ImageIcon img = new ImageIcon("textures/woodenBackground.jpg");
+
+       if (img != null)
+       {
+           g.drawImage(img.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+       }
+
        Graphics2D g2d=(Graphics2D)g;
 
 
        if (!game_over){
-           g2d.drawString("SCORE: "+score, 20, 300);
+           if (engineStartFlag){
+               g2d.setPaint(new Color(63, 75, 68));
+               g.setFont(new Font("Dialog", Font.BOLD, 15));
+               g2d.drawString("SCORE: "+score, 20, 360);
+           }
+
 
            g2d.setPaint(barColor);
            g2d.fill(b);
@@ -128,12 +139,23 @@ class Plansza extends JPanel implements MouseMotionListener, MouseListener
                     g2d.fill(a[i]);
            }
 
+           if (!engineStartFlag){
+               g2d.setPaint(new Color(63, 75, 68));
+               g.setFont(new Font("Dialog", Font.BOLD, 20));
+               g2d.drawString("LEFT CLICK", 150, 320);
+
+               g2d.setPaint(new Color(76, 57, 74));
+               g.setFont(new Font("Dialog", Font.BOLD, 17));
+               g2d.drawString("TO SHOOT THE BALL!", 300, 320);
+           }
+
 
       }else{
          s.running = false;
          bonusEngine.running=false;
-         g2d.setPaint(Color.BLUE);
-         g2d.drawString("GAME OVER", 100, 300);
+         g2d.setPaint(new Color(76, 57, 74));
+         g.setFont(new Font("Dialog", Font.BOLD, 20));
+         g2d.drawString("GAME OVER", getSize().width/2 - 60, getSize().height/2+30);
       }
 
    }
